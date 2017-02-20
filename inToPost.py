@@ -6,18 +6,19 @@
 
 from Stack import Stack
 
-def inToPost(s):
-
-    open = 0
+def parensBalance(s):
+    stack = Stack()
     for ch in s:
-        if ch == '([{':
-            open =+1
-        elif ch == ')]}':
-            open -= 1
-            if open < 0:
-                # there is no matching opener, so check fails
+        if ch in "({[":     # push an opening marker
+            stack.push(ch)
+        elif ch in ")}]":
+            if stack.size() < 1:
                 return False
-    return open == 0 # everything balances if no unmatched opens
+            else:
+                opener = stack.pop()
+                if opener+ch not in ["()", "[]", "{}"]:
+                    return False
+    return stack.size() == 0 # an empty stack means that everything is matched up
 
 def evalPostfix:
 
