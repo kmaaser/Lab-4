@@ -6,6 +6,33 @@
 
 from Stack import Stack
 
+def inToPost():
+
+    stack = Stack()
+    expression = list()
+    postFixExpression = list()
+    operator = ["*", "/", "+", "-"]
+    for token in expression:
+        if token == int:
+            postFixExpression.append(token)
+        elif token == ["(", "[", "{"]:
+            stack.push(token)
+        elif token == ["*", "/", "+", "-"]:
+            while stack.size != 0 and stack.top() == operator:
+                if stack.top() == ["*", "/"]:
+                    stack.pop(stack.top())
+                    postFixExpression.append(stack.top())
+            stack.push(token)
+        else:
+            while stack.size() > 0 and stack.top != [")", "]", "}"]:
+                stack.pop(stack.top())
+                postFixExpression.append(stack.top())
+            stack.pop(stack.top())
+    while stack.size > 0:
+        stack.pop()
+        postFixExpression.append(token)
+
+
 def breakUpExpression:
 
     pass
