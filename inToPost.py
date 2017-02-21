@@ -6,6 +6,10 @@
 
 from Stack import Stack
 
+def breakUpExpression:
+
+    pass
+
 def parensBalance(s):
     stack = Stack()
     for ch in s:

@@ -38,7 +38,10 @@ class Stack(object):
 
         post: removes and returns top item of stack'''
 
-        return self.s.pop()
+        if self.size() < 0:
+            return IndexError
+        else:
+            return self.s.pop()
 
     #------------------------------------------------------------------
 
@@ -50,8 +53,10 @@ class Stack(object):
 
         post: returns top item of stack'''
 
-        
-        return self.s[-1]
+        if self.size() < 0:
+            return IndexError
+        else:
+            return self.s[-1]
 
     #------------------------------------------------------------------
 
