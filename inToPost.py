@@ -6,31 +6,43 @@
 
 from Stack import Stack
 
-def inToPost():
+def inToPost(infixExpression):
 
     stack = Stack()
-    expression = list()
     postfixExpression = list()
     operator = ["*", "/", "+", "-"]
-    for token in expression:
-        if token == int:
-            postfixExpression.append(token)
-        elif token == ["(", "[", "{"]:
-            stack.push(token)
-        elif token == ["*", "/", "+", "-"]:
-            while stack.size != 0 and stack.top() == operator:
-                if stack.top() == ["*", "/"]:
-                    stack.pop(stack.top())
-                    postfixExpression.append(stack.top() + " ")
-            stack.push(token)
-        else:
-            while stack.size() > 0 and stack.top != [")", "]", "}"]:
-                stack.pop(stack.top())
-                postfixExpression.append(stack.top())
-            stack.pop(stack.top())
-    while stack.size > 0:
-        stack.pop()
-        postfixExpression.append(token + " ")
+
+    newExpression = infixExpression.split(" ")
+
+    for token in newExpression:
+        #if type(float(token)) is float:
+        try:
+            value = float(token)
+            postfixExpression.append(str(value))
+        except ValueError:
+            if token in ["(", "[", "{"]:
+                stack.push(token)
+            elif token in ["*", "/", "+", "-"]:
+                while stack.size() != 0 and stack.top() in operator:
+                    if stack.top() == ["*", "/"]:
+                        item = stack.pop(stack.top())
+                        postfixExpression.append(item + " ")
+                stack.push(token)
+            else:
+                topOfStack = stack.top()
+                while stack.size() > 0 and topOfStack not in ["(", "[", "{"]:
+                    item = stack.pop(topOfStack)
+                    postfixExpression.append(item)
+                    topOfStack = stack.top()
+                stack.pop(topOfStack)
+    while stack.size() > 0:
+        item = stack.pop()
+        postfixExpression.append(item + " ")
+    returnValue = str()
+    for i in postfixExpression:
+        returnValue += i
+        returnValue += " "
+    return returnValue
 
 def parensBalance(s):
     stack = Stack()
@@ -46,6 +58,6 @@ def parensBalance(s):
                     return False
     return stack.size() == 0 # an empty stack means that everything is matched up
 
-def evalPostfix:
+def evalPostfix():
 
     pass
