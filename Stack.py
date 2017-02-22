@@ -14,7 +14,7 @@ class Stack(object):
 
         '''creates an empty stack'''
                 
-        self.s = []
+        self.items = []
 
     #------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ class Stack(object):
 
         post: x is placed on top of the stack'''
         
-        self.s.append(x)
+        self.items.append(x)
 
     #------------------------------------------------------------------
 
@@ -38,10 +38,8 @@ class Stack(object):
 
         post: removes and returns top item of stack'''
 
-        if self.size() < 0:
-            return IndexError
-        else:
-            return self.s.pop()
+
+            return self.items.pop()
 
     #------------------------------------------------------------------
 
@@ -53,10 +51,7 @@ class Stack(object):
 
         post: returns top item of stack'''
 
-        if self.size() < 0:
-            return IndexError
-        else:
-            return self.s[-1]
+            return self.items[-1]
 
     #------------------------------------------------------------------
 
@@ -68,6 +63,6 @@ class Stack(object):
 
         post: returns the number of elements in the stack'''
         
-        return len(self.s)
+        return len(self.items)
 
 #----------------------------------------------------------------------

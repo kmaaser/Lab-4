@@ -20,13 +20,15 @@ def inToPost(infixExpression):
             value = float(token)
             postfixExpression.append(str(value))
         except ValueError:
-            if token in ["(", "[", "{"]:
-                stack.push(token)
-            elif token in ["*", "/", "+", "-"]:
-                while stack.size() != 0 and stack.top() in operator:
-                    if stack.top() == ["*", "/"]:
+            if token in [")", ")", ")", "(", "[", "{"]:
+                pass
+            elif token in operator:
+                while stack.size() is not 0 and stack.top() in operator:
+                    if token in operator and token >= "*" or "/":
                         item = stack.pop(stack.top())
                         postfixExpression.append(item + " ")
+                    else:
+                        stack.push(item)
                 stack.push(token)
             else:
                 topOfStack = stack.top()
@@ -58,6 +60,16 @@ def parensBalance(s):
                     return False
     return stack.size() == 0 # an empty stack means that everything is matched up
 
-def evalPostfix():
+def evalPostfix(postfixExpression):
+
+    stack1 = Stack
+    stack2 = Stack
+
+    for token in postfixExpression:
+        if token == "+":
+        elif token == "-":
+        elif token == "*":
+        elif token == "/":
+        else:
 
     pass
