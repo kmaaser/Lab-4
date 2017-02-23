@@ -39,7 +39,7 @@ class Stack(object):
         post: removes and returns top item of stack'''
 
 
-            return self.items.pop()
+        return self.items.pop()
 
     #------------------------------------------------------------------
 
@@ -51,7 +51,7 @@ class Stack(object):
 
         post: returns top item of stack'''
 
-            return self.items[-1]
+        return self.items[-1]
 
     #------------------------------------------------------------------
 

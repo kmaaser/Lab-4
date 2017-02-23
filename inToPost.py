@@ -23,12 +23,13 @@ def inToPost(infixExpression):
             if token in [")", ")", ")", "(", "[", "{"]:
                 pass
             elif token in operator:
-                while stack.size() is not 0 and stack.top() in operator:
-                    if token in operator and token >= "*" or "/":
-                        item = stack.pop(stack.top())
-                        postfixExpression.append(item + " ")
-                    else:
-                        stack.push(item)
+                while stack.size() != 0 and stack.top() in operator and (stack.top() in "*/" or token in "+-"):
+                    if stack.top() in "*/":
+                        item = stack.pop()
+                        postfixExpression.append(item)
+                    elif token in "+-":
+                        item = stack.pop()
+                        postfixExpression.append(item)
                 stack.push(token)
             else:
                 topOfStack = stack.top()
@@ -37,39 +38,27 @@ def inToPost(infixExpression):
                     postfixExpression.append(item)
                     topOfStack = stack.top()
                 stack.pop(topOfStack)
-    while stack.size() > 0:
+    while stack.size() != 0:
         item = stack.pop()
         postfixExpression.append(item + " ")
     returnValue = str()
     for i in postfixExpression:
-        returnValue += i
-        returnValue += " "
+        returnValue += (i + " ")
+        returnValue.strip()
+    ' '.join(returnValue)
+    returnValue.rstrip()
     return returnValue
 
-def parensBalance(s):
-    stack = Stack()
-    for ch in s:
-        if ch in "({[":     # push an opening marker
-            stack.push(ch)
-        elif ch in ")}]":
-            if stack.size() < 1:
-                return False
-            else:
-                opener = stack.pop()
-                if opener+ch not in ["()", "[]", "{}"]:
-                    return False
-    return stack.size() == 0 # an empty stack means that everything is matched up
 
 def evalPostfix(postfixExpression):
 
-    stack1 = Stack
-    stack2 = Stack
+    """numStack = Stack
 
     for token in postfixExpression:
         if token == "+":
         elif token == "-":
         elif token == "*":
         elif token == "/":
-        else:
+        else:"""
 
     pass
