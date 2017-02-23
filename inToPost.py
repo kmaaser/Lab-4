@@ -52,13 +52,27 @@ def inToPost(infixExpression):
 
 def evalPostfix(postfixExpression):
 
-    """numStack = Stack
+    numStack = Stack
 
     for token in postfixExpression:
         if token == "+":
-        elif token == "-":
-        elif token == "*":
-        elif token == "/":
-        else:"""
+            item1 = numStack.pop()
+            item2 = numStack.pop()
+            return item1 + item2
 
-    pass
+        elif token == "-":
+            item1 = numStack.pop()
+            item2 = numStack.pop()
+            return item2 - item1
+
+        elif token == "*":
+            item1 = numStack.pop()
+            item2 = numStack.pop()
+            return item1 * item2
+
+        elif token == "/":
+            item1 = numStack.pop()
+            item2 = numStack.pop()
+            return item2 / item1
+        else:
+            numStack.push(token)
