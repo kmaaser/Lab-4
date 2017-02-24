@@ -20,7 +20,7 @@ def inToPost(infixExpression):
             value = float(token)
             postfixExpression.append(str(value))
         except ValueError:
-            if token in [")", ")", ")", "(", "[", "{"]:
+            if token in ["(", "[", "{"]:
                 pass
             elif token in operator:
                 while stack.size() != 0 and stack.top() in operator and (stack.top() in "*/" or token in "+-"):
@@ -33,14 +33,13 @@ def inToPost(infixExpression):
                 stack.push(token)
             else:
                 topOfStack = stack.top()
-                while stack.size() > 0 and topOfStack not in ["(", "[", "{"]:
+                if stack.size() > 0 and token in [")", "]", "}"]:
                     item = stack.pop(topOfStack)
                     postfixExpression.append(item)
-                    topOfStack = stack.top()
                 stack.pop(topOfStack)
     while stack.size() != 0:
         item = stack.pop()
-        postfixExpression.append(item + " ")
+        postfixExpression.append(item)
     returnValue = str()
     for i in postfixExpression:
         returnValue += (i + " ")
@@ -52,27 +51,30 @@ def inToPost(infixExpression):
 
 def evalPostfix(postfixExpression):
 
-    numStack = Stack
+   """ numStack = Stack
+    answer = 0
 
     for token in postfixExpression:
-        if token == "+":
+        if token == "+" and numStack.size() > 0:
             item1 = numStack.pop()
             item2 = numStack.pop()
-            return item1 + item2
+            answer = answer + (item1 + item2)
 
-        elif token == "-":
+        elif token == "-" and numStack.size() > 0:
             item1 = numStack.pop()
             item2 = numStack.pop()
-            return item2 - item1
+            answer = answer + (item2 - item1)
 
-        elif token == "*":
+        elif token == "*" and numStack.size() > 0:
             item1 = numStack.pop()
             item2 = numStack.pop()
-            return item1 * item2
+            answer = answer + (item1 * item2)
 
-        elif token == "/":
+        elif token == "/" and numStack.size() > 0:
             item1 = numStack.pop()
             item2 = numStack.pop()
-            return item2 / item1
+            answer = answer (item2 / item1)
         else:
             numStack.push(token)
+    return answer"""
+   pass
