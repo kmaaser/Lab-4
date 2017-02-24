@@ -51,7 +51,7 @@ class Stack(object):
 
         post: returns top item of stack'''
 
-        return self.items[-1]
+        return self.items[self.size()-1]
 
     #------------------------------------------------------------------
 

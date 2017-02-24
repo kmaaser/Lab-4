@@ -1,80 +1,77 @@
 #----------------------------------------------------------------------
 # inToPost.py
 # Karenna Maaser
-# 02/08/2009
+# 02/23/2017
 #----------------------------------------------------------------------
 
 from Stack import Stack
 
 def inToPost(infixExpression):
 
+    # Creates a new stack
+    # Creates a new list
     stack = Stack()
-    postfixExpression = list()
+    postfixExpression = ""
     operator = ["*", "/", "+", "-"]
+    importance = {"*": 1,
+                  "/": 1,
+                  "+": 0,
+                  "-": 0}
 
-    newExpression = infixExpression.split(" ")
+    # splits the expression at the spaces
+    newExpression = infixExpression.split()
+    print(newExpression)
 
+    # goes through the expression
     for token in newExpression:
-        #if type(float(token)) is float:
-        try:
-            value = float(token)
-            postfixExpression.append(str(value))
-        except ValueError:
-            if token in ["(", "[", "{"]:
-                pass
-            elif token in operator:
-                while stack.size() != 0 and stack.top() in operator and (stack.top() in "*/" or token in "+-"):
-                    if stack.top() in "*/":
-                        item = stack.pop()
-                        postfixExpression.append(item)
-                    elif token in "+-":
-                        item = stack.pop()
-                        postfixExpression.append(item)
-                stack.push(token)
-            else:
-                topOfStack = stack.top()
-                if stack.size() > 0 and token in [")", "]", "}"]:
-                    item = stack.pop(topOfStack)
-                    postfixExpression.append(item)
-                stack.pop(topOfStack)
-    while stack.size() != 0:
-        item = stack.pop()
-        postfixExpression.append(item)
-    returnValue = str()
-    for i in postfixExpression:
-        returnValue += (i + " ")
-        returnValue.strip()
-    ' '.join(returnValue)
-    returnValue.rstrip()
-    return returnValue
+        print (postfixExpression)
+        print (stack.items)
+        if token.replace(".","",1).isdigit():
+            postfixExpression += (token+" ")
+        elif token in ["(", "[", "{"]:
+            stack.push(token)
+        # if the token is in the operator
+        elif token in operator:
+            while stack.size() != 0 and stack.top() in "*/+-" and (importance[stack.top()] >= importance[token]):
+                postfixExpression += stack.pop() + " "
+            stack.push(token)
+
+        else:
+            while stack.top() not in ["(", "[", "{"]:
+                print(stack.items)
+                postfixExpression += stack.pop() + " "
+            stack.pop()
+    postfixExpression+= stack.pop()+" "
+    while stack.size()!=0:
+        postfixExpression += stack.pop() + " "
+    print (postfixExpression)
+    return postfixExpression
 
 
 def evalPostfix(postfixExpression):
 
-   """ numStack = Stack
+    numStack = Stack()
     answer = 0
+    operator = ["*", "/", "+", "-"]
+    postList = postfixExpression.split()
 
-    for token in postfixExpression:
-        if token == "+" and numStack.size() > 0:
-            item1 = numStack.pop()
-            item2 = numStack.pop()
-            answer = answer + (item1 + item2)
-
-        elif token == "-" and numStack.size() > 0:
-            item1 = numStack.pop()
-            item2 = numStack.pop()
-            answer = answer + (item2 - item1)
-
-        elif token == "*" and numStack.size() > 0:
-            item1 = numStack.pop()
-            item2 = numStack.pop()
-            answer = answer + (item1 * item2)
-
-        elif token == "/" and numStack.size() > 0:
-            item1 = numStack.pop()
-            item2 = numStack.pop()
-            answer = answer (item2 / item1)
+    for token in postList:
+        if token in operator:
+            item1 = eval(numStack.pop())
+            item2 = eval(numStack.pop())
+            if token == "+":
+                answer = (item1 + item2)
+                numStack.push(str(answer))
+            elif token == "-":
+                answer = (item2 - item1)
+                numStack.push(str(answer))
+            elif token == "*":
+                answer = (item1 * item2)
+                numStack.push(str(answer))
+            elif token == "/":
+                answer = (item2 / item1)
+                numStack.push(str(answer))
         else:
             numStack.push(token)
-    return answer"""
-   pass
+    answer = eval(numStack.pop())
+    return answer
